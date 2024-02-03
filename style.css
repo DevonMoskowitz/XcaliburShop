@@ -181,10 +181,15 @@ body p {
     }
 
     nav .icons {
-        margin-right: 0px;
+        margin-right: 0;
         width: 25%;
         flex-direction: row;
         justify-content: space-evenly;
     }
 
+}
+
+footer {
+    line-height: 1px;
+    font-size: 8px;
 }
