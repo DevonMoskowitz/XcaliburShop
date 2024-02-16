@@ -2,12 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Devons Shop</title>
+    <title>Shopping Cart</title>
     <script src="https://kit.fontawesome.com/8d9dff0806.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        #total {
+            line-height: 8px;
+        }
+        .button {
+            height: 20%;
+            width: 20%;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 16px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background-color: black;
+            color: white;
+        }
+    </style>
 </head>
 <nav>
     <i id="hamburger" onclick="clickHam()" class="fa-solid fa-bars"></i>
@@ -25,42 +43,39 @@
     <script src="index.js"></script>
 </nav>
 <body>
-
-
+<h1>Shopping Cart</h1>
 <div class="main_section">
-    <br>
-    <h1>Featured Products</h1>
     <div class="featured-products">
         <div class="featured-product-1">
+            <img src="images/images%20(2).jpeg" alt="Tshirt">
             <h1>Legacy T-Shirt</h1>
             <p>This T-Shirt is our very best quality with our brand on it</p>
+            <p>Quantity: 1</p>
+            <p>Total per item: $25</p>
+            <button>Remove from Cart</button>
         </div>
         <div class="featured-product-2">
-            <h1>Legacy T-Shirt</h1>
-            <p>This T-Shirt is our very best quality with our brand on it</p>
+            <img src="images/whitehat.avif" alt="White hat">
+            <h1>Legacy Hat</h1>
+            <p>This Hat is our very best quality with our brand on it</p>
+            <p>Quantity: 2</p>
+            <p>Total per item: $40</p>
+            <button>Remove from Cart</button>
         </div>
     </div>
-    <br>
-    <br>
-
-    <div class="searchbar">
-        <input type="text" id="search" placeholder="Search for items!">
-        <a href="#"><i id="icon" class="fa-solid fa-magnifying-glass"></i></a>
-    </div>
-    <br>
-    <h1>Welcome to the Xcalibur Store!</h1>
-    <p>This store is the manifestation of a business idea by Devon Moskowitz</p>
-    <p>It has now come to life in the class CSC 300X</p>
-    <p>Thank you for coming to my site :)</p>
-
-    <img src="images/logo-only%20(1).png" alt="Main logo">
 </div>
-</body>
+<h1 id="total">Total: $</h1>
+<button class="button">Checkout</button>
+    <script>
+        document.getElementById("total").innerHTML = document.getElementById("total").innerHTML + total()
+        function total() {
+            let before_total = 20 * 2 + 25;
+            let tax = before_total * 0.0675;
+            let delivery_fee = 15
+            let service_fee = 10;
+            return Math.round((before_total + tax + delivery_fee + service_fee) * 100) / 100;
+        }
 
-<footer>
-    <hr>
-    <br>
-    <p>Copyright Xcalibur</p>
-    <p>Follow us on our socials!</p>
-</footer>
+    </script>
+</body>
 </html>
