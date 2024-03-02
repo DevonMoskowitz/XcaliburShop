@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Edit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="adminstyle.css">
+  <script defer src="index.js"></script>
+</head>
+<nav>
+  <img src="images/Xcalibur.png" alt="">
+  <div class="buttons">
+    <a href="bulk-upload.html"><button>Bulk Upload</button></a>
+    <a href="product-edit.html"><button>Edit Products</button></a>
+    <a href="#"><button>Sign out</button></a>
+  </div>
+  <br>
+</nav>
+<body>
+
+<div class="container">
+  <button id="productButton" style="display: block; margin-right: auto; margin-left: auto" onclick="clickAddNewButton()">Add New</button>
+  <form class="no-display" id="productForm">
+    <label>
+      Product Id:<br>
+      <input type="number" name="id" value="123456789" readonly>
+    </label>
+    <label>
+      Category Name:<br>
+      <input type="text" name="catname" value="Clothes">
+    </label>
+    <label>
+      Image Path:<br>
+      <input type="text" name="path" value="images/whitehat.avif">
+    </label>
+    <label>
+      Product Name:<br>
+      <input type="text" name="name" value="White Hat">
+    </label>
+    <label>
+      Description:<br>
+      <input type="text" name="description" value="This hat is very cool">
+    </label>
+    <label>
+      Price:<br>
+      <input type="number" name="price" value="1">
+    </label>
+    <label id="featured">
+      Featured: <br>
+      <input type="checkbox" name="featured" value="true">
+    </label>
+    <input type="submit" value="Save">
+  </form>
+
+  <br>
+  <h1>Product List</h1>
+  <table>
+    <tr>
+      <td>ID: 1</td>
+      <td>Name: White Hat</td>
+      <td>Category: Hats</td>
+      <td>Description: A cool hat</td>
+      <td>Price: 20</td>
+    </tr>
+  </table>
+</div>
+
+</body>
+</html>

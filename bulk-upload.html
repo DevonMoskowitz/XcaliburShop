@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulk Upload</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="adminstyle.css">
+</head>
+<nav>
+    <img src="images/Xcalibur.png" alt="">
+    <div class="buttons">
+        <a href="bulk-upload.html"><button>Bulk Upload</button></a>
+        <a href="product-edit.html"><button>Edit Products</button></a>
+        <a href="#"><button>Sign out</button></a>
+    </div>
+    <br>
+</nav>
+<body>
+<h1>Bulk Upload Page</h1>
+<form name="uploadForm" method="post">
+
+    <label for="fileUpload">JSON files only</label>
+    <input type="file" id="fileUpload"  accept=".json" name="product">
+    <input type="submit" value="Submit" id="submit">
+</form>
+<br>
+<p>Format for uploading:</p>
+<div class="image">
+    <img src="images/Screenshot%202024-02-28%20at%208.53.22%20PM.png" alt="stuff">
+</div>
+
+<script src="index.js"></script>
+
+</body>
+</html>

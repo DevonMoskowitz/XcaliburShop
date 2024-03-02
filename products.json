@@ -1,0 +1,10 @@
+{
+  "products":[
+    {
+        "name":"Legacy TShirt",
+        "description":"This T-Shirt is our very best quality with our brand on it",
+        "price":20,
+        "featured": true
+    }
+  ]
+}
