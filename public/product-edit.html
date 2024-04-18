@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Edit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="adminstyle.css">
+  <script defer>
+
+    document.addEventListener("DOMContentLoaded", e => {
+      fetch("http://localhost:3000/DevonsShop/getproducts").then(req => {return req.json();}).then(resp => {
+        document.getElementById("pid").value = resp.length + 1
+        resp.forEach(product => {
+          let element = document.createElement("tr");
+
+          let cell1 = document.createElement("td")
+          let cell2 = document.createElement("td")
+          let cell3 = document.createElement("td")
+          let cell4 = document.createElement("td")
+          let cell5 = document.createElement("td")
+
+          cell1.innerText = "ID: " + product["id"]
+          cell2.innerText = "Name: " + product["name"]
+          cell3.innerText = "Category: " + product["category"]
+          cell4.innerText = "Description: " + product["description"]
+          cell5.innerText = "Price: " + product["price"]
+
+          element.appendChild(cell1)
+          element.appendChild(cell2)
+          element.appendChild(cell3)
+          element.appendChild(cell4)
+          element.appendChild(cell5)
+          let br = document.createElement("br");
+          document.getElementById("table").appendChild(element)
+          document.getElementById("table").appendChild(br)
+        })
+      });
+    });
+    function clickAddNewButton() {
+      let button = document.getElementById("productButton")
+      let form = document.getElementById("productForm")
+      if (form.classList.contains("no-display")) {
+        button.innerText = "Hide New"
+        form.classList.replace("no-display", "display")
+      } else {
+        button.innerText = "Add New"
+        form.classList.replace("display", "no-display")
+      }
+    }
+
+
+    document.addEventListener("submit", (ev) => {
+      ev.preventDefault();
+
+      let name = document.getElementById("name").value
+      let desc = document.getElementById("description").value
+      let price = document.getElementById("price").value
+      let cname = document.getElementById("cname").value
+      let ipath = document.getElementById("ipath").value
+      let feature = document.getElementById("feature").checked
+
+      let data = {"name": name,
+        "description": desc,
+        "price":price,
+        "category_name": cname,
+        "image_url": ipath,
+        "is_featured": feature
+      }
+      fetch("http://localhost:3000/DevonsShop/newproduct", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json' // specify content type as JSON
+        },
+        body: JSON.stringify(data)
+      })
+
+      location.reload()
+    });
+  </script>
+</head>
+<nav>
+  <img src="images/Xcalibur.png" alt="">
+  <div class="buttons">
+    <a href="bulk-upload.html"><button>Bulk Upload</button></a>
+    <a href="product-edit.html"><button>Edit Products</button></a>
+    <a href="#"><button>Sign out</button></a>
+  </div>
+  <br>
+</nav>
+
+<body>
+
+<div class="container">
+  <button id="productButton" style="display: block; margin-right: auto; margin-left: auto" onclick="clickAddNewButton()">Add New</button>
+  <form class="no-display" id="productForm">
+    <label>
+      Product Id:<br>
+      <input type="number" id="pid" name="id" value="" readonly>
+    </label>
+    <label>
+      Category Name:<br>
+      <input type="text" id="cname" name="catname" value="Clothes">
+    </label>
+    <label>
+      Image Path:<br>
+      <input type="text" id="ipath" name="path" value="images/whitehat.avif">
+    </label>
+    <label>
+      Product Name:<br>
+      <input type="text" id="name" name="name" value="White Hat">
+    </label>
+    <label>
+      Description:<br>
+      <input type="text" id="description" name="description" value="This hat is very cool">
+    </label>
+    <label>
+      Price:<br>
+      <input type="number" id="price" name="price" value="1">
+    </label>
+    <label id="featured">
+      Featured: <br>
+      <input type="checkbox" id="feature" name="featured">
+    </label>
+    <input type="submit" value="Add">
+  </form>
+
+  <br>
+  <h1>Product List</h1>
+  <table id="table">
+  </table>
+</div>
+
+</body>
+</html>

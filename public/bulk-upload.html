@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bulk Upload</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="adminstyle.css">
+</head>
+<nav>
+    <img src="images/Xcalibur.png" alt="">
+    <div class="buttons">
+        <a href="bulk-upload.html"><button>Bulk Upload</button></a>
+        <a href="product-edit.html"><button>Edit Products</button></a>
+        <a href="#"><button>Sign out</button></a>
+    </div>
+    <br>
+</nav>
+<body>
+<h1>Bulk Upload Page</h1>
+<form name="uploadForm" method="post">
+
+    <label for="fileUpload">JSON files only</label>
+    <input type="file" id="fileUpload"  accept=".json" name="product">
+    <input type="submit" value="Submit" id="submit">
+</form>
+<br>
+<p>Format for uploading:</p>
+<div class="image">
+    <img src="images/Screenshot%202024-04-15%20at%208.53.01%20PM.png" alt="stuff">
+</div>
+
+<script>
+
+    document.querySelector("form").addEventListener("submit", async (event) => {
+        event.preventDefault()
+        let file = document.getElementById("fileUpload").files[0]
+        if (file != null) {
+            try {
+                const newFile = await parseJsonFile(file);
+                newFile["items"].forEach(item => {
+                    fetch("http://localhost:3000/DevonsShop/newproduct", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json' // specify content type as JSON
+                        },
+                        body: JSON.stringify(item)
+                    }).then(response => {
+                        console.log("Received response:", response);
+                        return response.json();
+                    }).then(data => {
+                    });
+                })
+            } catch (error) {
+                console.error('Error parsing JSON:', error);
+            }
+        }
+    })
+    async function parseJsonFile(file) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.onload = event => resolve(JSON.parse(event.target.result))
+            fileReader.onerror = error => reject(error)
+            fileReader.readAsText(file)
+        })
+    }
+</script>
+
+</body>
+</html>
