@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Page</title>
+    <script src="https://kit.fontawesome.com/8d9dff0806.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <style>
+
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+
+        nav {
+            background-color: grey;
+            border-bottom: 2px solid black;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+        }
+
+
+        nav img {
+            width: 225px;
+            height: 65px;
+            margin-top: 8px;
+            margin-left: 32px;
+            cursor: pointer;
+        }
+
+        nav .tags {
+            width: 300px;
+            font-size: 18px;
+            display: flex;
+            color: black;
+            justify-content: space-between;
+            margin-left: -12%;
+        }
+
+        nav .tags a {
+            text-decoration: none;
+        }
+
+        nav .tags a h1 {
+            border: 2px solid transparent;
+            transition: 0.3s;
+            color: black;
+        }
+
+        nav .tags a:hover h1 {
+            border-top-color: black;
+            border-bottom-color: black;
+        }
+
+        nav .about_tag {
+        }
+
+        nav .shop_tag {
+
+        }
+
+        .icons {
+            display: flex;
+            color: black;
+            margin-top: 16px;
+            padding: 8px;
+            font-size: 40px;
+
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 8px;
+        }
+
+        .icons a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .main_section #search {
+            text-align: left;
+            color: black;
+            font-size: 18px;
+            height: 40px;
+            width: 300px;
+            border: 2px solid grey;
+            border-radius: 32px;
+            background-color: lightgray;
+            padding-left: 12px;
+            transition: 0.3s;
+        }
+
+
+        .main_section .featured-products {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .main_section .featured-products h1, .main_section .featured-products p {
+            margin: 5px;
+        }
+
+        .main_section .featured-product-1, .featured-product-2 {
+            display: flex;
+            border: 2px solid black;
+            flex-direction: column;
+            border-radius: 20px;
+            box-shadow: 2px 5px 5px 2px black;
+            width: 20%;
+            height: 50%;
+        }
+
+
+        .main_section .featured-products img {
+            margin-top: 16px;
+            margin-right: auto;
+            margin-left: auto;
+            height: 200px;
+            width: 150px;
+        }
+
+        .main_section #search:hover {
+            height: 50px;
+            width: 350px;
+            transition: 0.3s;
+        }
+
+        .main_section .searchbar #icon {
+            padding: 12px;
+            background-color: lightgray;
+            border: 2px solid grey;
+            border-radius: 24px;
+        }
+        .main_section .searchbar a {
+            text-decoration: none;
+            color: black;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        body .main_section img {
+            width: 13%;
+            height: 13%;
+        }
+
+        body p {
+            font-size: 18px;
+        }
+
+        #hamburger {
+            display: none;
+            font-size: 32px;
+            position: absolute;
+            top: 5%;
+            right: 25px;
+            transform: translateY(-50%);
+            padding: 4px;
+            transition: 0.3s ease-in-out;
+        }
+
+        #hamburger:hover {
+            color: white;
+        }
+
+        @media (max-width: 1000px) {
+            nav img {
+                margin-left: 16px;
+            }
+            #hamburger {
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 16px;
+            }
+            nav .tags, nav .icons {
+                justify-content: center;
+                background-color: grey;
+                position: fixed;
+                right: -100%;
+                width: 30%;
+                top: -8px;
+            }
+
+            nav .tags {
+                flex-direction: column;
+                justify-content: center;
+                top: 10%;
+            }
+
+            nav .icons {
+                margin-right: 0;
+                width: 25%;
+                flex-direction: row;
+                justify-content: space-evenly;
+            }
+
+            .main_section .featured-products img {
+                height: 100px;
+                width: 75px;
+            }
+
+        }
+
+        footer {
+            line-height: 1px;
+            font-size: 8px;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 16px;
+
+            line-height: 6px;
+        }
+
+        .products img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .products div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 8px;
+            height: 300px;
+            width: 300px;
+            border: 2px solid black;
+        }
+        p {
+            display: block;
+            margin: auto;
+        }
+    </style>
+    <script defer>
+        let ham = document.getElementById("hamburger");
+        let icons = document.getElementById("icons");
+        let tags = document.getElementById("tags");
+        let checked = false;
+
+        let json = {
+            "name": "Legacy TShirt",
+            "description": "This T-Shirt is our very best quality with our brand on it",
+            "price": 20
+        }
+
+        document.addEventListener("click", e => {
+
+            if (e.target.id === "sign-in" || e.target.id === "cart") {
+                if (e.target.id === "cart") {
+                    console.log("incart")
+                    if (isLoggedIn()) {
+                        // go to cart
+
+                        window.location.href = "http://localhost:63342/DevonsShop/public/cart.html"
+                    } else {
+                        window.location.href = "http://localhost:63342/DevonsShop/public/sign-in.html"
+                    }
+                } else {
+                    if (isLoggedIn()) {
+                        location.reload()
+                    } else {
+                        window.location.href = "http://localhost:63342/DevonsShop/public/sign-in.html"
+                    }
+                }
+            }
+        })
+
+        function detailsPage(id) {
+            window.location.href = "http://localhost:3000/DevonsShop/product/" + id
+        }
+
+        document.getElementById("hamburger").addEventListener("click", clickHam)
+
+        function clickHam() {
+            if (!checked) {
+                ham.style.setProperty("right", "32%")
+                icons.style.setProperty("right", "0")
+                tags.style.setProperty("right", "0")
+                checked = true;
+            } else {
+                ham.style.setProperty("right", "25px")
+                icons.style.setProperty("right", "-100%")
+                tags.style.setProperty("right", "-100%")
+                checked = false;
+            }
+        }
+        function saveLoginInfo(email, name, id) {
+            sessionStorage.setItem("username", email);
+            sessionStorage.setItem("name", name);
+            sessionStorage.setItem("userid", id)
+        }
+
+        function isLoggedIn() {
+            return Boolean(sessionStorage.getItem("logged"))
+        }
+
+        // Function to retrieve login information from sessionStorage
+        function getUsernameFromCookie() {
+            return sessionStorage.getItem("username");
+        }
+
+        function getNameFromCookie() {
+            return sessionStorage.getItem("name");
+        }
+
+        function getIdFromCookie() {
+            return sessionStorage.getItem("userid")
+        }
+
+        // Function to clear login information from sessionStorage
+        function clearLoginInfo() {
+            sessionStorage.removeItem("name");
+            sessionStorage.removeItem("email");
+            sessionStorage.removeItem("userid")
+        }
+    </script>
+</head>
+<nav>
+    <i id="hamburger" onclick="clickHam()" class="fa-solid fa-bars"></i>
+    <div class="nav-bar">
+        <a href="http://localhost:63342/DevonsShop/public/index.html"><img src="http://localhost:63342/DevonsShop/public/images/Xcalibur.png" alt="This is the logo"></a>
+        <div id="tags" class="tags">
+            <a href="http://localhost:63342/DevonsShop/public/shop.html?_ijt=pfprkc5hgsr75o06mf08qbiapi&_ij_reload=RELOAD_ON_SAVE" class="shop_tag"><h1>Shop</h1></a>
+            <a href="http://localhost:63342/DevonsShop/public/about.html" class="about_tag"><h1>About</h1></a>
+        </div>
+        <div id="icons" class="icons">
+            <i id="sign-in" class="fa-solid fa-user"></i>
+            <i id="cart" class="fa-solid fa-cart-shopping"></i>
+        </div>
+    </div>
+</nav>
+<body>
+
+<h1>Search Results</h1>
+
+<div class="products" id="fp">
+    <% if (products !== undefined && products.length > 0) { %>
+        <% products.forEach(product => { %>
+            <div class="products">
+                <img src="http://localhost:63342/DevonsShop/public/<%= product.image_url %>" alt="<%= product.name %>">
+                <h1><%= product.name %></h1>
+                <p><%= product.description %></p>
+                <p>$<%= product.price %></p>
+                <button id="details" onclick="detailsPage(<%= product.id %>)">Product Details</button>
+                <button id="addtocart" class="add-to-cart">Add to cart</button>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No products available.</p>
+    <% } %>
+</div>
+
+
+</body>
+</html>
