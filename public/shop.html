@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Products Shop</title>
+    <script src="https://kit.fontawesome.com/8d9dff0806.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="index.js" defer></script>
+    <style>
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 16px;
+
+            line-height: 6px;
+        }
+
+        .products img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: auto;
+        }
+
+        .products div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 8px;
+            height: 300px;
+            width: 300px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<nav>
+    <i id="hamburger" class="fa-solid fa-bars"></i>
+    <div class="nav-bar">
+        <a href="index.html"><img src="images/Xcalibur.png" alt="This is the logo"></a>
+        <div id="tags" class="tags">
+            <a href="" class="shop_tag"><h1>Shop</h1></a>
+            <a href="about.html" class="about_tag"><h1>About</h1></a>
+        </div>
+        <div id="icons" class="icons">
+            <i id="sign-in" class="fa-solid fa-user"></i>
+            <i id="cart" class="fa-solid fa-cart-shopping"></i>
+        </div>
+    </div>
+</nav>
+<body>
+
+<h1>All Products</h1>
+
+<div class="products" id="fp">
+
+</div>
+
+
+</body>
+<script>
+    function saveLoginInfo(email, name, id) {
+        sessionStorage.setItem("username", email);
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("userid", id)
+    }
+
+    function isLoggedIn() {
+        return Boolean(sessionStorage.getItem("logged"));
+    }
+
+    // Function to retrieve login information from sessionStorage
+    function getUsernameFromCookie() {
+        return sessionStorage.getItem("username");
+    }
+
+    function getNameFromCookie() {
+        return sessionStorage.getItem("name");
+    }
+
+    function getIdFromCookie() {
+        return sessionStorage.getItem("userid")
+    }
+
+    // Function to clear login information from sessionStorage
+    function clearLoginInfo() {
+        sessionStorage.removeItem("name");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("userid")
+    }
+    fetch("http://localhost:3000/DevonsShop/getproducts").then(req => {return req.json();}).then(resp => {
+        console.log(resp);
+        resp.forEach(product => {
+            let div = document.createElement("div");
+            let img = document.createElement("img")
+            img.src = product["image_url"]
+            let h1 = document.createElement("h1")
+            h1.innerText = product["name"]
+            let p1 = document.createElement("p")
+            p1.innerText = product["description"]
+            let p2 = document.createElement("p");
+            p2.innerText = "Price: $" + product["price"]
+            let button = document.createElement("button")
+            let button2 = document.createElement("button")
+            button.id = "addtocart"
+            button.innerText = "Add to Cart"
+            button2.id = "details"
+            button2.innerText = "Product Details"
+            div.appendChild(img)
+            div.appendChild(h1)
+            div.appendChild(p1)
+            div.appendChild(p2)
+            div.appendChild(button2)
+            div.appendChild(document.createElement("br"))
+            div.appendChild(document.createElement("br"))
+            div.appendChild(button)
+
+            let appendTo = document.getElementById("fp");
+            appendTo.appendChild(div)
+
+            button2.addEventListener("click", ev => {
+                window.location.href = "http://localhost:3000/DevonsShop/product/" + product["id"]
+            })
+
+            button.addEventListener("click", ev => {
+                if (!isLoggedIn()) {
+                    window.location.href = "http://localhost:63342/DevonsShop/public/sign-in.html";
+                    return;
+                }
+                let data = {
+                    "product": product,
+                    "userid": getIdFromCookie()
+                }
+                fetch("http://localhost:3000/DevonsShop/addtocart", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json' // specify content type as JSON
+                    },
+                    body: JSON.stringify(data)
+                })
+            })
+        })
+    })
+
+</script>
+</html>

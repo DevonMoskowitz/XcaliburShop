@@ -8,21 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="index.js" defer></script>
 </head>
 <nav>
-    <i id="hamburger" onclick="clickHam()" class="fa-solid fa-bars"></i>
+    <i id="hamburger" class="fa-solid fa-bars"></i>
     <div class="nav-bar">
         <a href="index.html"><img src="images/Xcalibur.png" alt="This is the logo"></a>
         <div id="tags" class="tags">
-            <a href="" class="shop_tag"><h1>Shop</h1></a>
+            <a href="http://localhost:63342/DevonsShop/public/shop.html?_ijt=34i95ab224h7cau3m39m9kq6ap&_ij_reload=RELOAD_ON_SAVE" class="shop_tag"><h1>Shop</h1></a>
             <a href="about.html" class="about_tag"><h1>About</h1></a>
         </div>
         <div id="icons" class="icons">
-            <a href="sign-in.html"><i class="fa-solid fa-user"></i></a>
-            <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+            <i id="sign-in" class="fa-solid fa-user"></i>
+            <i id="cart" class="fa-solid fa-cart-shopping"></i>
         </div>
     </div>
-    <script src="index.js"></script>
 </nav>
 <body>
 
@@ -45,7 +45,7 @@
 
     <div class="searchbar">
         <input type="text" id="search" placeholder="Search for items!">
-        <a href="#"><i id="icon" class="fa-solid fa-magnifying-glass"></i></a>
+        <i id="searchicon" class="fa-solid fa-magnifying-glass"></i>
     </div>
     <br>
     <h1>Welcome to the Xcalibur Store!</h1>
@@ -63,4 +63,12 @@
     <p>Copyright Xcalibur</p>
     <p>Follow us on our socials!</p>
 </footer>
+<script>
+    document.getElementById("searchicon").addEventListener("click", e=> {
+        let setting = document.getElementById("search").value
+        if (setting !== "") {
+            window.location.href = "http://localhost:3000/DevonsShop/search/" + setting
+        }
+    })
+</script>
 </html>

@@ -121,7 +121,7 @@ nav .shop_tag {
     transition: 0.3s;
 }
 
-.main_section .searchbar #icon {
+.main_section .searchbar #searchicon {
     padding: 12px;
     background-color: lightgray;
     border: 2px solid grey;

@@ -42,6 +42,15 @@
     }
   </style>
   <script defer>
+    fetch("https://raw.githubusercontent.com/ceceradio/genders/master/genders.json").then(resp => {return resp.json();}).then(data => {
+      let upper = document.getElementById("gender")
+
+      data.forEach(gender => {
+        let newOption = document.createElement("option")
+        newOption.innerText = gender;
+        upper.appendChild(newOption)
+      })
+    })
     document.addEventListener("submit", async (ev) => {
       ev.preventDefault()
       let name = document.getElementById("name").value
@@ -93,6 +102,11 @@
     <br>
     <br>
     <label for="password">Password: </label><input type="password" name="password" id="password">
+    <br>
+    <br>
+    <label for="gender">Gender : </label><select name="gender" id="gender">
+
+  </select></label>
     <br>
     <br>
     <input type="submit" value="Submit">

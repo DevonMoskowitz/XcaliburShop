@@ -13,7 +13,7 @@
     <div class="buttons">
         <a href="bulk-upload.html"><button>Bulk Upload</button></a>
         <a href="product-edit.html"><button>Edit Products</button></a>
-        <a href="#"><button>Sign out</button></a>
+        <a href="index.html"><button onclick="clearLoginInfo()">Sign out</button></a>
     </div>
     <br>
 </nav>
@@ -28,10 +28,16 @@
 <br>
 <p>Format for uploading:</p>
 <div class="image">
-    <img src="images/Screenshot%202024-04-15%20at%208.53.01%20PM.png" alt="stuff">
+    <img src="images/Screenshot%202024-04-26%20at%2010.08.33%20AM.png" alt="stuff">
 </div>
 
 <script>
+    function clearLoginInfo() {
+        sessionStorage.removeItem("name");
+        sessionStorage.removeItem("email");
+        sessionStorage.removeItem("userid");
+        sessionStorage.removeItem("logged");
+    }
 
     document.querySelector("form").addEventListener("submit", async (event) => {
         event.preventDefault()
@@ -50,11 +56,13 @@
                         console.log("Received response:", response);
                         return response.json();
                     }).then(data => {
+                        //
                     });
                 })
             } catch (error) {
                 console.error('Error parsing JSON:', error);
             }
+            window.location.reload()
         }
     })
     async function parseJsonFile(file) {
